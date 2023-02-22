@@ -18,7 +18,7 @@ node {
         withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
           sh 'docker build -t $DOCKERHUB_USERNAME/$DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG --no-cache .'
           sh 'docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD'
-          sh 'docker push myusername/myapp:latest'
+          sh 'docker push DOCKERHUB_USERNAME/DOCKER_IMAGE_NAME:DOCKER_IMAGE_TAG'
         }
       }
     }
