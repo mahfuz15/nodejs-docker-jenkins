@@ -24,9 +24,11 @@ node {
       // if(env.BRANCH_NAME == 'master') {
         withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
           echo "Stage: Deploy"
-          sh 'docker pull $DOCKERHUB_USERNAME/docker-pipeline:latest'
-          sh 'docker run -d -p 8090:8090 --name app $DOCKERHUB_USERNAME/docker-pipeline:latest'
-          sh 'docker rmi -f $DOCKERHUB_USERNAME/docker-pipeline:latest'
+           withEnv(["DOCKER_IMAGE_NAME=docker-pipeline", "DOCKER_IMAGE_TAG=latest"]) {
+              sh 'docker pull $DOCKERHUB_USERNAME/$DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG'
+              sh 'docker run -d -p 8090:8090 --name app $DOCKERHUB_USERNAME/$DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG'
+              sh 'docker rmi -f $DOCKERHUB_USERNAME/$DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG'
+          }
         }
       // }
     }
