@@ -23,7 +23,7 @@ node {
       // }
     }
     stage('Deploy') {
-      // if(env.BRANCH_NAME == 'master') {
+      //  if(env.BRANCH_NAME == 'master') {
         withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
           echo "Stage: Deploy"
            withEnv(["DOCKER_IMAGE_NAME=docker-pipeline", "DOCKER_IMAGE_TAG=latest"]) {
