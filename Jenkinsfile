@@ -1,8 +1,8 @@
 node {
   try {
     environment {
-        DOCKER_IMAGE_NAME = 'docker-pipeline'
-        DOCKER_IMAGE_TAG = 'latest'
+        DOCKER_IMAGE_NAME = "docker-pipeline"
+        DOCKER_IMAGE_TAG = "latest"
     }
     stage('Checkout') {
       checkout scm
