@@ -25,7 +25,7 @@ node {
       // }
     }
     stage('Deploy') {
-      // if(env.BRANCH_NAME == 'master') {
+      //  if(env.BRANCH_NAME == 'master') {
         withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
           echo "Stage: Deploy"
           sh 'docker pull $DOCKERHUB_USERNAME/$DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG'
