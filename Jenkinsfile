@@ -13,10 +13,12 @@ node {
       echo "Stage: Build"
       // if(env.BRANCH_NAME == 'master') {
         withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
-          sh 'docker build -t $DOCKERHUB_USERNAME/docker-pipeline:latest --no-cache .'
-          sh 'docker images'
-          sh 'docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD'
-          sh 'docker push $DOCKERHUB_USERNAME/docker-pipeline:latest'
+          withEnv(["DOCKER_IMAGE_NAME=docker-pipeline", "DOCKER_IMAGE_TAG=latest"]) {
+            sh 'docker build -t $DOCKERHUB_USERNAME/$DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG --no-cache .'
+            sh 'docker images'
+            sh 'docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD'
+            sh 'docker push $DOCKERHUB_USERNAME/$DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG'
+          }
         }
       // }
     }
