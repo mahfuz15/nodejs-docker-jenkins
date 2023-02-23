@@ -11,7 +11,7 @@ node {
     }
     stage('Build') {
       echo "Stage: Build"
-      //  if(env.BRANCH_NAME == 'master') {
+      // if(env.BRANCH_NAME == 'master') {
         withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
           sh 'docker build -t $DOCKERHUB_USERNAME/docker-pipeline:latest --no-cache .'
           sh 'docker images'
